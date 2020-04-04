@@ -5,12 +5,9 @@ import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.main.Main;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageType;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;

@@ -2,21 +2,10 @@ package de.klschlitzohr.stickfight.listner;
 
 import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.main.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.util.Vector;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 public class DamageListner implements Listener {
 

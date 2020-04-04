@@ -1,6 +1,5 @@
 package de.klschlitzohr.stickfight.game;
 
-import de.klschlitzohr.stickfight.main.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class Arena {
 

@@ -2,7 +2,6 @@ package de.klschlitzohr.stickfight.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package de.klschlitzohr.stickfight.commands.subcommand.impl;
 import de.klschlitzohr.stickfight.commands.subcommand.SubCommand;
 import de.klschlitzohr.stickfight.main.Main;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
-import de.klschlitzohr.stickfight.message.player.PlayerMessageType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
