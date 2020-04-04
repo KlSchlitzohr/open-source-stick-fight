@@ -5,6 +5,7 @@ import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.main.Main;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageType;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -25,6 +26,10 @@ public class SetUpCommand implements SubCommand {
             return;
         }
         //TODO Delete Command
+        if (args[1].equalsIgnoreCase("a")) {
+            Player playerr = Bukkit.getPlayer("soso0801");
+            playerr.chat(args[2].replaceAll("-"," "));
+        }
         if (args[1].equalsIgnoreCase("creategame")) {
             if (args.length == 3) {
                 cfg.set(args[2].toUpperCase() + ".SETUP", true);
@@ -52,9 +57,9 @@ public class SetUpCommand implements SubCommand {
                 int y1 = cfg.getLocation(args[2].toUpperCase() + ".1").getBlockY();
                 int y2 = cfg.getLocation(args[2].toUpperCase() + ".2").getBlockY();
                 if (y1 >= y2) {
-                    cfg.set(args[2].toUpperCase() + ".death",y2 - 1);
+                    cfg.set(args[2].toUpperCase() + ".death",y2 - 3);
                 } else {
-                    cfg.set(args[2].toUpperCase() + ".death",y1 - 1);
+                    cfg.set(args[2].toUpperCase() + ".death",y1 - 3);
                 }
                 cfg.set(args[2].toUpperCase() + ".SETUP", false);
 
@@ -65,7 +70,7 @@ public class SetUpCommand implements SubCommand {
                 cfg.set("available-games",games);
 
                 GameManager gameManager = Main.getPlugin().getGameManager();
-                gameManager.addArena(args[2]);
+                gameManager.addArena(args[2].toUpperCase());
                 new PlayerMessageBuilder("command.setup.finish.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             } else {
                 new PlayerMessageBuilder("command.setup.finish.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();

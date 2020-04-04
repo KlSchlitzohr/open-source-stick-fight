@@ -18,12 +18,12 @@ public class JoinCommand implements SubCommand {
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
         if (args.length == 2) {
             if (Main.getPlugin().getGameManager().joinArenaName(args[1],player)) {
-                new PlayerMessageBuilder("command.join.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+                new PlayerMessageBuilder("command.join.success", player).send();
             } else {
-                new PlayerMessageBuilder("command.join.full", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+                new PlayerMessageBuilder("command.join.full", player).send();
             }
         } else {
-            new PlayerMessageBuilder("command.join.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            new PlayerMessageBuilder("command.join.syntax", player).send();
         }
     }
 

@@ -1,20 +1,19 @@
 package de.klschlitzohr.stickfight.game;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameManager {
 
-    public ArrayList<Arena> getAllArena() {
-        return allArena;
-    }
+    private HashMap<Player, Location> lastLocation = new HashMap<>();
 
-    // allArenas
     private ArrayList<Arena> allArena;
-    // activeGames
+
     private ArrayList<Arena> activeArenas;
-    // availableArenas
+
     private ArrayList<Arena> avivableArenas;
 
     public GameManager() {
@@ -30,6 +29,11 @@ public class GameManager {
                     if (arena.isfull()) {
                         avivableArenas.remove(arena);
                         activeArenas.add(arena);
+                        for (Player player1 : arena.getPlayersinarena().keySet()) {
+                            lastLocation.put(player1, player1.getLocation());
+                            player1.setHealth(player1.getHealthScale());
+                            player1.setFoodLevel(20);
+                        }
                         arena.startArena();
                     }
                     return true;
@@ -44,13 +48,30 @@ public class GameManager {
         avivableArenas.add(arena);
     }
 
-    public void playerLeave(Player player) {
+    public void playerLeave(Player player, boolean serverLeave) {
         for (Arena arena : allArena) {
             if (arena.playerisinArena(player)) {
-                arena.leavearena(player);
+                for (Player playersinarena : arena.getPlayersinarena().keySet()) {
+                    if (!serverLeave) {
+                        playersinarena.teleport(lastLocation.get(playersinarena));
+                    }
+                    lastLocation.remove(playersinarena);
+                    arena.leavearena(playersinarena);
+                }
                 avivableArenas.add(arena);
                 activeArenas.remove(arena);
+                break;
             }
         }
+    }
+
+
+    //Getter & Setters
+    public HashMap<Player, Location> getLastLocation() {
+        return lastLocation;
+    }
+
+    public ArrayList<Arena> getAllArena() {
+        return allArena;
     }
 }

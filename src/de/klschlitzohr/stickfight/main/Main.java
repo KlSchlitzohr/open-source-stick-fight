@@ -3,7 +3,7 @@ package de.klschlitzohr.stickfight.main;
 import de.klschlitzohr.stickfight.commands.CommandStickfightExecutor;
 import de.klschlitzohr.stickfight.commands.TabComplete;
 import de.klschlitzohr.stickfight.game.GameManager;
-import de.klschlitzohr.stickfight.listner.PlayerLeaveListner;
+import de.klschlitzohr.stickfight.listner.*;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.language.LanguageManager;
 import org.bukkit.Bukkit;
@@ -36,6 +36,11 @@ public class Main extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         pluginManager.registerEvents(new PlayerLeaveListner(), this);
+        pluginManager.registerEvents(new PlayerMoveListner(), this);
+        pluginManager.registerEvents(new DamageListner(), this);
+        pluginManager.registerEvents(new BlockBreakPlaceListner(), this);
+        pluginManager.registerEvents(new FoodListner(), this);
+        pluginManager.registerEvents(new DropListner(), this);
 
 
         Setup.setup();
