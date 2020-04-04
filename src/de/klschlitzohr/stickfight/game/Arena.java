@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.util.*;
@@ -43,23 +42,19 @@ public class Arena {
         firstspawn = cfg.getLocation(name + ".1");
         secoundspawn = cfg.getLocation(name + ".2");
         deathHigh = cfg.getInt(name + ".death");
-        setNockbackstick();
+        setNockbackStick();
     }
 
-    private void setNockbackstick() {
-        ItemStack itemStack = new ItemStack(Material.STICK);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.addEnchant(Enchantment.KNOCKBACK, 2,true);
-        itemMeta.setDisplayName("\u00a7cStick");
-        itemStack.setItemMeta(itemMeta);
-        nockbackstick = itemStack;
+    private void setNockbackStick() {
+        nockbackstick = new ItemStackBuilder(Material.STICK,1).setDisplayName("§cStick")
+                .addEnchantment(Enchantment.KNOCKBACK,2,true).build();
     }
 
-    public void joinarena(Player player) {
+    public void joinArena(Player player) {
         playersinarena.put(player,0);
     }
 
-    public void leavearena(Player player) {
+    public void leaveArena(Player player) {
         Thread t = new Thread(() -> {
             try {
                 Thread.sleep(100);
@@ -72,21 +67,13 @@ public class Arena {
         scorebaordManager.updateScoreBoard(this,false);
     }
 
-    public boolean playerisinArena(Player checkplayer) {
+    public boolean playerIsInArena(Player checkplayer) {
         for (Player player : playersinarena.keySet()) {
             if (player == checkplayer) {
                 return true;
             }
         }
         return false;
-    }
-
-    public boolean isfull() {
-        return playersinarena.size() == 2;
-    }
-
-    public Integer getplayercount() {
-        return playersinarena.size();
     }
 
     public void startArena() {
@@ -114,8 +101,6 @@ public class Arena {
         playersinarena.put(otherPlayer,playersinarena.get(otherPlayer) + 1);
         setInventory(player);
         scorebaordManager.updateScoreBoard(this,true);
-        player.setFallDistance(0f);
-        player.setHealth(20);
         if (otherPlayer.getLocation().distance(firstspawn) > otherPlayer.getLocation().distance(secoundspawn))
             player.teleport(firstspawn);
         else
@@ -132,5 +117,13 @@ public class Arena {
 
     public int getDeathHigh() {
         return deathHigh;
+    }
+
+    public Integer getPlayerCount() {
+        return playersinarena.size();
+    }
+
+    public boolean isFull() {
+        return playersinarena.size() == 2;
     }
 }

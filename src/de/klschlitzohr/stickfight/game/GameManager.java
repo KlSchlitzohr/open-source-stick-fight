@@ -25,8 +25,8 @@ public class GameManager {
     public boolean joinArenaName(String name, Player player) {
         for (Arena arena : avivableArenas) {
             if (arena.getName().equalsIgnoreCase(name)) {
-                    arena.joinarena(player);
-                    if (arena.isfull()) {
+                    arena.joinArena(player);
+                    if (arena.isFull()) {
                         avivableArenas.remove(arena);
                         activeArenas.add(arena);
                         for (Player player1 : arena.getPlayersinarena().keySet()) {
@@ -50,13 +50,13 @@ public class GameManager {
 
     public void playerLeave(Player player, boolean serverLeave) {
         for (Arena arena : allArena) {
-            if (arena.playerisinArena(player)) {
+            if (arena.playerIsInArena(player)) {
                 for (Player playersinarena : arena.getPlayersinarena().keySet()) {
                     if (!serverLeave) {
                         playersinarena.teleport(lastLocation.get(playersinarena));
                     }
                     lastLocation.remove(playersinarena);
-                    arena.leavearena(playersinarena);
+                    arena.leaveArena(playersinarena);
                 }
                 avivableArenas.add(arena);
                 activeArenas.remove(arena);

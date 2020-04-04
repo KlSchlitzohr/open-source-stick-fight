@@ -16,7 +16,7 @@ public class GamesCommand implements SubCommand {
                     .setType(PlayerMessageType.PLAYER_INFO).send();
 
             for (Arena arena : Main.getPlugin().getGameManager().getAllArena()) {
-                new PlayerMessageBuilder("- " + arena.getName() + " " + arena.getplayercount() + "/2",
+                new PlayerMessageBuilder("- " + arena.getName() + " " + arena.getPlayerCount() + "/2",
                         player, true).setType(PlayerMessageType.PLAYER_INFO).send();
             }
         }
