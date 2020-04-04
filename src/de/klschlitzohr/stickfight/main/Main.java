@@ -3,6 +3,7 @@ package de.klschlitzohr.stickfight.main;
 import de.klschlitzohr.stickfight.commands.CommandStickfightExecutor;
 import de.klschlitzohr.stickfight.commands.TabComplete;
 import de.klschlitzohr.stickfight.game.GameManager;
+import de.klschlitzohr.stickfight.game.ScoreBoardManager;
 import de.klschlitzohr.stickfight.listner.*;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.language.LanguageManager;
@@ -17,8 +18,9 @@ public class Main extends JavaPlugin {
 
     private GameManager gameManager;
 
-    private LanguageManager languageManager;
+    private ScoreBoardManager scorebaordManager;
 
+    private LanguageManager languageManager;
     @Override
     public void onEnable() {
         plugin = this;
@@ -27,6 +29,7 @@ public class Main extends JavaPlugin {
         languageManager.load();
 
         gameManager = new GameManager();
+        scorebaordManager = new ScoreBoardManager(gameManager);
 
         PluginCommand sfCommand = getCommand("stickfight");
 
@@ -71,5 +74,9 @@ public class Main extends JavaPlugin {
 
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    public ScoreBoardManager getScorebaordManager() {
+        return scorebaordManager;
     }
 }

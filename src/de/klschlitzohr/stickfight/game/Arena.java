@@ -1,23 +1,14 @@
 package de.klschlitzohr.stickfight.game;
 
-import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
-import net.minecraft.server.v1_15_R1.ChatComponentText;
-import net.minecraft.server.v1_15_R1.IChatBaseComponent;
-import net.minecraft.server.v1_15_R1.PacketPlayOutChat;
-import org.bukkit.Bukkit;
+import de.klschlitzohr.stickfight.main.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.io.File;
 import java.util.*;
@@ -42,7 +33,10 @@ public class Arena {
 
     private int deathHigh;
 
+    private ScoreBoardManager scorebaordManager;
+
     public Arena(String name) {
+        this.scorebaordManager = Main.getPlugin().getScorebaordManager();
         this.name = name.toUpperCase();
         FileConfiguration cfg = YamlConfiguration
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
@@ -75,7 +69,7 @@ public class Arena {
             playersinarena.remove(player);
         },"leaveArena");
         player.getInventory().clear();
-        setScoreBoard(false);
+        scorebaordManager.updateScoreBoard(this,false);
     }
 
     public boolean playerisinArena(Player checkplayer) {
@@ -105,10 +99,11 @@ public class Arena {
                 player.teleport(secoundspawn);
             setInventory(player);
         }
-        setScoreBoard(true);
+        scorebaordManager.updateScoreBoard(this,true);
     }
 
     private void setInventory(Player player) {
+        player.closeInventory();
         player.getInventory().clear();
         player.getInventory().addItem(nockbackstick);
         player.getInventory().addItem(new ItemStack(Material.SANDSTONE,5));
@@ -118,7 +113,7 @@ public class Arena {
         Player otherPlayer = getOtherPlayer(player);
         playersinarena.put(otherPlayer,playersinarena.get(otherPlayer) + 1);
         setInventory(player);
-        setScoreBoard(true);
+        scorebaordManager.updateScoreBoard(this,true);
         player.setFallDistance(0f);
         player.setHealth(20);
         if (otherPlayer.getLocation().distance(firstspawn) > otherPlayer.getLocation().distance(secoundspawn))
@@ -133,25 +128,6 @@ public class Arena {
                 return p;
         }
         return null;
-    }
-
-    private void setScoreBoard(boolean show) {
-        for (Player player : playersinarena.keySet()) {
-            if (show) {
-                Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-                Objective objective = scoreboard.registerNewObjective("abcd", "abcd");
-                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-                objective.setDisplayName("\u00a73\u00a7lScore");
-                objective.getScore( "\u00a7a\u00a7l" + playersinarena.get(player) + " \u00a7a" + player.getName())
-                        .setScore(2);
-                Player otherPlayer = getOtherPlayer(player);
-                objective.getScore("\u00a7c\u00a7l" + playersinarena.get(otherPlayer) + " \u00a7c" +
-                        otherPlayer.getName()).setScore(1);
-                player.setScoreboard(scoreboard);
-            } else {
-                player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-            }
-        }
     }
 
     public int getDeathHigh() {
