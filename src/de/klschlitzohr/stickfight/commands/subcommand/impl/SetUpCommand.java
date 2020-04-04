@@ -35,8 +35,11 @@ public class SetUpCommand implements SubCommand {
                 new PlayerMessageBuilder("command.setup.creategame.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             }
         } else if (args[1].equalsIgnoreCase("setmaterial")) {
-            cfg.set(args[2].toUpperCase() + ".blocks", player.getInventory().getItemInMainHand());
-            new PlayerMessageBuilder("command.setup.setmaterial.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            if (args.length == 3) {
+                cfg.set(args[2].toUpperCase() + ".blocks", player.getInventory().getItemInMainHand());
+                new PlayerMessageBuilder("command.setup.setmaterial.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            } else
+                new PlayerMessageBuilder("command.setup.setmaterial.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
         } else if (args[1].equalsIgnoreCase("setspawn")) {
             if (args.length == 4 && ((args[2].equals("1") || args[2].equals("2")))) {
                 cfg.set(args[3].toUpperCase() + "." + args[2], player.getLocation());
@@ -61,6 +64,10 @@ public class SetUpCommand implements SubCommand {
                 }
                 if (cfg.getLocation(args[2].toUpperCase() + ".1") == null) {
                     new PlayerMessageBuilder("command.setup.finish.forgot.firstspawn", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+                    return;
+                }
+                if (cfg.getLocation(args[2].toUpperCase() + ".blocks") == null) {
+                    new PlayerMessageBuilder("command.setup.finish.forgot.blocks", player).setType(PlayerMessageType.PLAYER_SETUP).send();
                     return;
                 }
                 int y1 = cfg.getLocation(args[2].toUpperCase() + ".1").getBlockY();

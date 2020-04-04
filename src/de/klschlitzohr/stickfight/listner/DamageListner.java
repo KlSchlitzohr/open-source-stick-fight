@@ -35,25 +35,4 @@ public class DamageListner implements Listener {
             }
         }
     }
-
-    @EventHandler
-    public void getDamageBadsyEntity(InventoryClickEvent event) {
-        System.out.println("clickevent");
-    }
-
-    @EventHandler
-    public void getDamageddddByEntity(InventoryMoveItemEvent event) {
-        System.out.println("Move item");
-    }
-
-    @EventHandler
-    public void getDamagaaeddddByEntity(InventoryInteractEvent event) {
-        System.out.println("Interakt");
-    }
-
-    @EventHandler
-    public void getdtDamageddddByEntity(InventoryDragEvent event) {
-        System.out.println("drag event");
-    }
-
 }
