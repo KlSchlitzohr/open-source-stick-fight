@@ -21,7 +21,7 @@ public class PlayerMoveListner implements Listener {
         Player player = event.getPlayer();
 
         if (this.gameManager.getLastLocation().containsKey(player)) {
-            for (Arena arena : this.gameManager.getAllArena()) {
+            for (Arena arena : this.gameManager.getActiveArenas()) {
                 if (arena.getPlayersinarena().containsKey(player)) {
                     if (arena.getDeathHigh() > player.getLocation().getY()) {
                         arena.killPlayer(player);

@@ -22,7 +22,6 @@ public class LanguageManager {
 
                 if (!selected.getParentFile().exists()) {
                     this.saveDefaultLanguages(selected.getParentFile());
-                    System.out.println("Saved default files.");
                 }
 
                 if (!selected.exists()) {
@@ -31,7 +30,6 @@ public class LanguageManager {
                     FileOutputStream out = new FileOutputStream(selected);
                     out.write("en".getBytes(StandardCharsets.UTF_8));
                     out.close();
-                    System.out.println("Created Selected file.");
                 }
 
                 language = Files.readFirstLine(selected, StandardCharsets.UTF_8);
@@ -77,7 +75,26 @@ public class LanguageManager {
             return false;
         }
 
+        this.saveChanges(language);
+
         return true;
+    }
+
+    private void saveChanges(String language) {
+        new Thread(() -> {
+            File selected = new File("plugins/Stickfight/languages/selected.cfg");
+
+            if (selected.exists())
+                selected.delete();
+
+            try {
+                selected.createNewFile();
+
+                FileOutputStream out = new FileOutputStream(selected);
+                out.write(language.getBytes(StandardCharsets.UTF_8));
+                out.close();
+            } catch (IOException ignored) { }
+        }, "Language saver").start();
     }
 
     private void loadMessages(final File languageFile) throws IOException {

@@ -11,12 +11,6 @@ import java.util.List;
 
 public class TabComplete implements TabCompleter {
 
-    private PluginCommand sfCommand;
-
-    public TabComplete(PluginCommand sfCommand) {
-        this.sfCommand = sfCommand;
-    }
-
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         if (args[0].equalsIgnoreCase("setup") && args.length == 2) {
@@ -30,16 +24,4 @@ public class TabComplete implements TabCompleter {
         }
             return new ArrayList<>();
     }
-
-
-        /*((commandSender, command, alias, args) -> {
-
-            if (args.length == 0)
-                return Arrays.asList("games", "join", "setup", "help", "setlang");
-            if (args[0].equalsIgnoreCase("setup") && args.length == 1)
-                return Arrays.asList("creategame", "setspawn", "finish");
-            return Arrays.asList("creategame", "setspawn", "finish");
-        });
-
-                 */
 }

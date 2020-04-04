@@ -11,12 +11,12 @@ public class ItemStackBuilder {
     private ItemStack itemStack;
 
     public ItemStackBuilder(Material material, int amount) {
-        itemStack = new ItemStack(material,2);
+        itemStack = new ItemStack(material,amount);
         itemMeta = itemStack.getItemMeta();
     }
 
-    public ItemStackBuilder addEnchantment(Enchantment enchantment, int strengst, boolean visible) {
-        itemMeta.addEnchant(enchantment,strengst,visible);
+    public ItemStackBuilder addEnchantment(Enchantment enchantment, int strength, boolean visible) {
+        itemMeta.addEnchant(enchantment,strength,visible);
         return this;
     }
 

@@ -6,9 +6,11 @@ import de.klschlitzohr.stickfight.main.Main;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageType;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +27,6 @@ public class SetUpCommand implements SubCommand {
             new PlayerMessageBuilder("command.setup.finish.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             return;
         }
-        //TODO Delete Command
-        if (args[1].equalsIgnoreCase("a")) {
-            Player playerr = Bukkit.getPlayer("soso0801");
-            playerr.chat(args[2].replaceAll("-"," "));
-        }
         if (args[1].equalsIgnoreCase("creategame")) {
             if (args.length == 3) {
                 cfg.set(args[2].toUpperCase() + ".SETUP", true);
@@ -37,12 +34,24 @@ public class SetUpCommand implements SubCommand {
             } else {
                 new PlayerMessageBuilder("command.setup.creategame.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             }
+        } else if (args[1].equalsIgnoreCase("setmaterial")) {
+            cfg.set(args[2].toUpperCase() + ".blocks", player.getInventory().getItemInMainHand());
+            new PlayerMessageBuilder("command.setup.setmaterial.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
         } else if (args[1].equalsIgnoreCase("setspawn")) {
             if (args.length == 4 && ((args[2].equals("1") || args[2].equals("2")))) {
                 cfg.set(args[3].toUpperCase() + "." + args[2], player.getLocation());
                 new PlayerMessageBuilder("command.setup.setspawn.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             } else {
                 new PlayerMessageBuilder("command.setup.setspawn.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            }
+        } else if (args[1].equalsIgnoreCase("deletegame")) {
+            if (args.length == 3) {
+                if (Main.getPlugin().getGameManager().removeArena(args[2]))
+                    new PlayerMessageBuilder("command.setup.deletegame.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+                else
+                    new PlayerMessageBuilder("command.setup.deletegame.fail", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            } else {
+                new PlayerMessageBuilder("command.setup.deletegame.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             }
         } else if (args[1].equalsIgnoreCase("finish")) {
             if (args.length == 3) {
@@ -57,9 +66,9 @@ public class SetUpCommand implements SubCommand {
                 int y1 = cfg.getLocation(args[2].toUpperCase() + ".1").getBlockY();
                 int y2 = cfg.getLocation(args[2].toUpperCase() + ".2").getBlockY();
                 if (y1 >= y2) {
-                    cfg.set(args[2].toUpperCase() + ".death",y2 - 3);
+                    cfg.set(args[2].toUpperCase() + ".death", y2 - 3);
                 } else {
-                    cfg.set(args[2].toUpperCase() + ".death",y1 - 3);
+                    cfg.set(args[2].toUpperCase() + ".death", y1 - 3);
                 }
                 cfg.set(args[2].toUpperCase() + ".SETUP", false);
 
@@ -67,11 +76,18 @@ public class SetUpCommand implements SubCommand {
 
                 games.add(args[2].toUpperCase());
 
-                cfg.set("available-games",games);
+                cfg.set("available-games", games);
+
+                try {
+                    cfg.save(new File("plugins//Stickfight//Games.yml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 GameManager gameManager = Main.getPlugin().getGameManager();
                 gameManager.addArena(args[2].toUpperCase());
                 new PlayerMessageBuilder("command.setup.finish.success", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+                return;
             } else {
                 new PlayerMessageBuilder("command.setup.finish.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             }

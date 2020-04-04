@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class Arena {
 
@@ -32,10 +34,7 @@ public class Arena {
 
     private int deathHigh;
 
-    private ScoreBoardManager scorebaordManager;
-
     public Arena(String name) {
-        this.scorebaordManager = Main.getPlugin().getScorebaordManager();
         this.name = name.toUpperCase();
         FileConfiguration cfg = YamlConfiguration
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
@@ -64,7 +63,7 @@ public class Arena {
             playersinarena.remove(player);
         },"leaveArena");
         player.getInventory().clear();
-        scorebaordManager.updateScoreBoard(this,false);
+        ScoreBoardUtils.updateScoreBoard(this,false);
     }
 
     public boolean playerIsInArena(Player checkplayer) {
@@ -86,21 +85,24 @@ public class Arena {
                 player.teleport(secoundspawn);
             setInventory(player);
         }
-        scorebaordManager.updateScoreBoard(this,true);
+        ScoreBoardUtils.updateScoreBoard(this,true);
     }
 
     private void setInventory(Player player) {
         player.closeInventory();
+
+        int stick = player.getInventory().first(Material.STICK);
+
         player.getInventory().clear();
-        player.getInventory().addItem(nockbackstick);
-        player.getInventory().addItem(new ItemStack(Material.SANDSTONE,5));
+        player.getInventory().setItemInOffHand(new ItemStack(Material.SANDSTONE,5));
+        player.getInventory().setItem(stick, nockbackstick);
     }
 
     public void killPlayer(Player player) {
         Player otherPlayer = getOtherPlayer(player);
         playersinarena.put(otherPlayer,playersinarena.get(otherPlayer) + 1);
         setInventory(player);
-        scorebaordManager.updateScoreBoard(this,true);
+        ScoreBoardUtils.updateScoreBoard(this,true);
         if (otherPlayer.getLocation().distance(firstspawn) > otherPlayer.getLocation().distance(secoundspawn))
             player.teleport(firstspawn);
         else

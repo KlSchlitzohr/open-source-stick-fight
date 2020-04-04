@@ -6,15 +6,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-public class ScoreBoardManager {
+public class ScoreBoardUtils {
 
-    private GameManager gameManager;
-
-    public ScoreBoardManager(GameManager gameManager) {
-        this.gameManager = gameManager;
-    }
-
-    public void updateScoreBoard(Arena arena, boolean show) {
+    public static void updateScoreBoard(Arena arena, boolean show) {
         for (Player player : arena.getPlayersinarena().keySet()) {
             if (show) {
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();

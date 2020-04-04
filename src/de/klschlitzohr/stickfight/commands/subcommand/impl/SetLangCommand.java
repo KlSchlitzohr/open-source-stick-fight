@@ -16,7 +16,7 @@ public class SetLangCommand implements SubCommand {
              else
                 new PlayerMessageBuilder("command.setlang.error",player).addVariable("%lang", args[1]).send();
         } else {
-            new PlayerMessageBuilder("command.setlang.synatx",player).send();
+            new PlayerMessageBuilder("command.setlang.syntax",player).send();
         }
     }
 

@@ -27,20 +27,13 @@ public class BlockBreakPlaceListner implements Listener {
     public void blockPlace(BlockPlaceEvent event) {
         Player player = (Player) event.getPlayer();
         if (this.gameManager.getLastLocation().containsKey(player)) {
-            BukkitScheduler scheduler = getServer().getScheduler();
-            scheduler.scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().getWorld("world").getBlockAt(event.getBlock().getLocation()).setType(Material.REDSTONE_BLOCK);
-                }
-            }, 60L);
-            BukkitScheduler scheduler2 = getServer().getScheduler();
-            scheduler2.scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().getWorld("world").getBlockAt(event.getBlock().getLocation()).setType(Material.AIR);
-                }
-            }, 70L);
+            getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
+                    Bukkit.getServer().getWorld("world").getBlockAt(
+                            event.getBlock().getLocation()).setType(Material.REDSTONE_BLOCK), 60L);
+
+            getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
+                    Bukkit.getServer().getWorld("world").getBlockAt(
+                            event.getBlock().getLocation()).setType(Material.AIR), 70L);
         }
     }
 

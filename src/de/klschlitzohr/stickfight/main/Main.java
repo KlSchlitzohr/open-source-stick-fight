@@ -3,7 +3,7 @@ package de.klschlitzohr.stickfight.main;
 import de.klschlitzohr.stickfight.commands.CommandStickfightExecutor;
 import de.klschlitzohr.stickfight.commands.TabComplete;
 import de.klschlitzohr.stickfight.game.GameManager;
-import de.klschlitzohr.stickfight.game.ScoreBoardManager;
+import de.klschlitzohr.stickfight.game.ScoreBoardUtils;
 import de.klschlitzohr.stickfight.listner.*;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.language.LanguageManager;
@@ -18,8 +18,6 @@ public class Main extends JavaPlugin {
 
     private GameManager gameManager;
 
-    private ScoreBoardManager scorebaordManager;
-
     private LanguageManager languageManager;
     @Override
     public void onEnable() {
@@ -29,12 +27,11 @@ public class Main extends JavaPlugin {
         languageManager.load();
 
         gameManager = new GameManager();
-        scorebaordManager = new ScoreBoardManager(gameManager);
 
         PluginCommand sfCommand = getCommand("stickfight");
 
         sfCommand.setExecutor(new CommandStickfightExecutor());
-        sfCommand.setTabCompleter(new TabComplete(sfCommand));
+        sfCommand.setTabCompleter(new TabComplete());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
 
@@ -76,7 +73,4 @@ public class Main extends JavaPlugin {
         return gameManager;
     }
 
-    public ScoreBoardManager getScorebaordManager() {
-        return scorebaordManager;
-    }
 }

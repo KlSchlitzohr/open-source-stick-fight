@@ -48,6 +48,25 @@ public class GameManager {
         avivableArenas.add(arena);
     }
 
+    public boolean removeArena(String name) {
+        Arena toRemove = null;
+
+        for (Arena arena : allArena) {
+            if (arena.getName().equalsIgnoreCase(name)) {
+                if (!activeArenas.contains(arena))
+                    toRemove = arena;
+                break;
+            }
+        }
+
+        if (toRemove == null)
+            return false;
+
+        allArena.remove(toRemove);
+        avivableArenas.remove(toRemove);
+        return true;
+    }
+
     public void playerLeave(Player player, boolean serverLeave) {
         for (Arena arena : allArena) {
             if (arena.playerIsInArena(player)) {
@@ -67,11 +86,15 @@ public class GameManager {
 
 
     //Getter & Setters
+
     public HashMap<Player, Location> getLastLocation() {
         return lastLocation;
     }
-
     public ArrayList<Arena> getAllArena() {
         return allArena;
+    }
+
+    public ArrayList<Arena> getActiveArenas() {
+        return activeArenas;
     }
 }
