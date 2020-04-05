@@ -63,7 +63,7 @@ public class SetUpCommand implements SubCommand {
                     new PlayerMessageBuilder("command.setup.finish.forgot.firstspawn", player).setType(PlayerMessageType.PLAYER_SETUP).send();
                     return;
                 }
-                if (cfg.getLocation(args[2].toUpperCase() + ".blocks") == null) {
+                if (cfg.getItemStack(args[2].toUpperCase() + ".blocks") == null) {
                     new PlayerMessageBuilder("command.setup.finish.forgot.blocks", player).setType(PlayerMessageType.PLAYER_SETUP).send();
                     return;
                 }
