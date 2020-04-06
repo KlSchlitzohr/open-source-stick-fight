@@ -25,10 +25,12 @@ public class Arena {
 
     private ItemStack nockbackstick;
 
+    private ItemStack blocks;
+
     private String name;
+
     private Location firstspawn;
     private Location secoundspawn;
-
     private int deathHigh;
 
     public Arena(String name) {
@@ -38,6 +40,7 @@ public class Arena {
         firstspawn = cfg.getLocation(name + ".1");
         secoundspawn = cfg.getLocation(name + ".2");
         deathHigh = cfg.getInt(name + ".death");
+        blocks = cfg.getItemStack(name + ".blocks");
         setNockbackStick();
     }
 
@@ -57,7 +60,9 @@ public class Arena {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //TODO Error player does not leeave!
             playersinarena.remove(player);
+            System.out.println("removed");
         },"leaveArena");
         player.getInventory().clear();
         ScoreBoardUtils.updateScoreBoard(this,false);
@@ -89,10 +94,34 @@ public class Arena {
         player.closeInventory();
 
         int stick = player.getInventory().first(Material.STICK);
+        int blocke = -10;
+        if (player.getInventory().first(blocks.getData().getItemType()) == -1)
+            blocke = player.getInventory().first(Material.BARRIER);
+        else if (player.getInventory().first(Material.BARRIER) == -1)
+            blocke = player.getInventory().first(blocks.getData().getItemType());
+        if (player.getInventory().getItemInOffHand().getData().getItemType() == Material.BARRIER ||
+                player.getInventory().getItemInOffHand().getData().getItemType() == blocks.getData().getItemType())
+            blocke = -5;
+
+        System.out.println(blocke);
+
+        if (stick == -1)
+            stick = 0;
+        if (blocke == -1)
+            blocke = 1;
+
+        boolean ofhand = false;
+        if (blocke == -5)
+            ofhand = true;
+        boolean setstick = player.getInventory().getItemInOffHand().getData().getItemType() == Material.STICK;
 
         player.getInventory().clear();
-        player.getInventory().setItemInOffHand(new ItemStack(Material.SANDSTONE,5));
-        player.getInventory().setItem(stick, nockbackstick);
+        if (!ofhand)
+            player.getInventory().setItem(blocke,blocks);
+        else
+            player.getInventory().setItemInOffHand(blocks);
+        if (!setstick)
+            player.getInventory().setItem(stick, nockbackstick);
     }
 
     public void killPlayer(Player player) {
@@ -124,5 +153,9 @@ public class Arena {
 
     public boolean isFull() {
         return playersinarena.size() == 2;
+    }
+
+    public ItemStack getBlocks() {
+        return blocks;
     }
 }

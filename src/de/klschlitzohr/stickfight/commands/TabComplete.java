@@ -13,7 +13,7 @@ public class TabComplete implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         if (args[0].equalsIgnoreCase("setup") && args.length == 2) {
-            return Arrays.asList("creategame", "setspawn", "finish");
+            return Arrays.asList("creategame", "setspawn", "finish","setMaterial");
         }
         if (args.length == 3 && args[1].equalsIgnoreCase("setspawn")) {
             return Arrays.asList("1","2");

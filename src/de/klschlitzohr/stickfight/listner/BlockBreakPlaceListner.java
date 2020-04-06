@@ -1,6 +1,8 @@
 package de.klschlitzohr.stickfight.listner;
 
+import de.klschlitzohr.stickfight.game.Arena;
 import de.klschlitzohr.stickfight.game.GameManager;
+import de.klschlitzohr.stickfight.game.ItemStackBuilder;
 import de.klschlitzohr.stickfight.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -9,6 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MainHand;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -24,10 +29,28 @@ public class BlockBreakPlaceListner implements Listener {
     public void blockPlace(BlockPlaceEvent event) {
         Player player = (Player) event.getPlayer();
         if (this.gameManager.getLastLocation().containsKey(player)) {
+            if (event.getBlockPlaced().getType() == Material.BARRIER)
+                event.setCancelled(true);
+            Material material = null;
+            for (Arena arena : gameManager.getActiveArenas()) {
+                if (arena.getPlayersinarena().containsKey(event.getPlayer()))
+                    material = arena.getBlocks().getData().getItemType();
+            }
+            if (material == null)
+                return;
+            if (event.getHand() == EquipmentSlot.OFF_HAND) {
+                if (player.getInventory().getItemInOffHand().getAmount() == 1) {
+                    player.getInventory().setItemInOffHand(new ItemStackBuilder(Material.BARRIER, 1)
+                            .setDisplayName("§cXXX").build());
+                }
+            }
+            else if (player.getInventory().getItem(player.getInventory().first(material)).getAmount() == 1)
+                player.getInventory().setItem(player.getInventory().first(material),
+                        new ItemStackBuilder(Material.BARRIER,1).setDisplayName("§cXXX").build());
+
             getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
                     Bukkit.getServer().getWorld("world").getBlockAt(
                             event.getBlock().getLocation()).setType(Material.REDSTONE_BLOCK), 60L);
-
             getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
                     Bukkit.getServer().getWorld("world").getBlockAt(
                             event.getBlock().getLocation()).setType(Material.AIR), 70L);
