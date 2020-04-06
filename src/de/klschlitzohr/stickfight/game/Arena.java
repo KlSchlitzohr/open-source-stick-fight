@@ -99,11 +99,9 @@ public class Arena {
             blocke = player.getInventory().first(Material.BARRIER);
         else if (player.getInventory().first(Material.BARRIER) == -1)
             blocke = player.getInventory().first(blocks.getData().getItemType());
-        if (player.getInventory().getItemInOffHand().getData().getItemType() == Material.BARRIER ||
+        if (player.getInventory().getItemInOffHand().getData().getItemType() == Material.LEGACY_BARRIER ||
                 player.getInventory().getItemInOffHand().getData().getItemType() == blocks.getData().getItemType())
             blocke = -5;
-
-        System.out.println(blocke);
 
         if (stick == -1)
             stick = 0;
@@ -113,7 +111,7 @@ public class Arena {
         boolean ofhand = false;
         if (blocke == -5)
             ofhand = true;
-        boolean setstick = player.getInventory().getItemInOffHand().getData().getItemType() == Material.STICK;
+        boolean setstick = player.getInventory().getItemInOffHand().getData().getItemType() == Material.LEGACY_STICK;
 
         player.getInventory().clear();
         if (!ofhand)
@@ -122,6 +120,8 @@ public class Arena {
             player.getInventory().setItemInOffHand(blocks);
         if (!setstick)
             player.getInventory().setItem(stick, nockbackstick);
+        else
+            player.getInventory().setItemInOffHand(nockbackstick);
     }
 
     public void killPlayer(Player player) {

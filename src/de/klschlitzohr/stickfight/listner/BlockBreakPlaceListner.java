@@ -29,8 +29,11 @@ public class BlockBreakPlaceListner implements Listener {
     public void blockPlace(BlockPlaceEvent event) {
         Player player = (Player) event.getPlayer();
         if (this.gameManager.getLastLocation().containsKey(player)) {
-            if (event.getBlockPlaced().getType() == Material.BARRIER)
+            if (event.getBlockPlaced().getType() == Material.BARRIER) {
                 event.setCancelled(true);
+                return;
+            }
+
             Material material = null;
             for (Arena arena : gameManager.getActiveArenas()) {
                 if (arena.getPlayersinarena().containsKey(event.getPlayer()))
@@ -44,9 +47,8 @@ public class BlockBreakPlaceListner implements Listener {
                             .setDisplayName("§cXXX").build());
                 }
             }
-            else if (player.getInventory().getItem(player.getInventory().first(material)).getAmount() == 1)
-                player.getInventory().setItem(player.getInventory().first(material),
-                        new ItemStackBuilder(Material.BARRIER,1).setDisplayName("§cXXX").build());
+            else if (player.getInventory().getItemInMainHand().getAmount() == 1)
+                player.getInventory().setItemInMainHand(new ItemStackBuilder(Material.BARRIER,1).setDisplayName("§cXXX").build());
 
             getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
                     Bukkit.getServer().getWorld("world").getBlockAt(
