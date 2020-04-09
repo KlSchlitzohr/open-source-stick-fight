@@ -30,7 +30,9 @@ public class Arena {
     private String name;
 
     private Location firstspawn;
+
     private Location secoundspawn;
+
     private int deathHigh;
 
     public Arena(String name) {
@@ -43,7 +45,6 @@ public class Arena {
         blocks = cfg.getItemStack(name + ".blocks");
         setNockbackStick();
     }
-
     private void setNockbackStick() {
         nockbackstick = new ItemStackBuilder(Material.STICK,1).setDisplayName("§cStick")
                 .addEnchantment(Enchantment.KNOCKBACK,2,true).build();
@@ -157,5 +158,13 @@ public class Arena {
 
     public ItemStack getBlocks() {
         return blocks;
+    }
+
+    public Location getSecoundspawn() {
+        return secoundspawn;
+    }
+
+    public Location getFirstspawn() {
+        return firstspawn;
     }
 }

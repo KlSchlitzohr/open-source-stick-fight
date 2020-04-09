@@ -36,8 +36,17 @@ public class BlockBreakPlaceListner implements Listener {
 
             Material material = null;
             for (Arena arena : gameManager.getActiveArenas()) {
-                if (arena.getPlayersinarena().containsKey(event.getPlayer()))
+                if (arena.getPlayersinarena().containsKey(event.getPlayer())) {
                     material = arena.getBlocks().getData().getItemType();
+                    if (arena.getFirstspawn().getBlockX() == event.getBlock().getX() &&
+                            arena.getFirstspawn().getBlockZ() == event.getBlock().getZ() ||
+                    arena.getSecoundspawn().getBlockX() == event.getBlock().getX() &&
+                    arena.getSecoundspawn().getBlockZ() == event.getBlock().getZ()) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                }
             }
             if (material == null)
                 return;
