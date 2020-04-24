@@ -16,10 +16,13 @@ public class GameManager {
 
     private ArrayList<Arena> avivableArenas;
 
+    private ArrayList<Player> playersInQueue;
+
     public GameManager() {
        allArena = GameUtilities.loadArenas();
        activeArenas = new ArrayList<>();
        avivableArenas = new ArrayList<>(allArena);
+       playersInQueue = new ArrayList<>();
     }
 
     public boolean joinArenaName(String name, Player player) {
@@ -39,6 +42,27 @@ public class GameManager {
                     return true;
             }
         }
+        return false;
+    }
+
+    public boolean joinQueue(Player player) {
+        if (playersInQueue.contains(player))
+            return true;
+            playersInQueue.add(player);
+            if (playersInQueue.size() == 2) {
+                for (Arena arena : avivableArenas) {
+                    if (arena.getPlayersinarena().size() == 0) {
+                        for (Player playerinque : playersInQueue) {
+                            joinArenaName(arena.getName(),playerinque);
+                            playersInQueue.remove(playerinque);
+                        }
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
+
         return false;
     }
 
@@ -82,6 +106,8 @@ public class GameManager {
                 break;
             }
         }
+        if (playersInQueue.contains(player))
+            playersInQueue.remove(player);
     }
 
 

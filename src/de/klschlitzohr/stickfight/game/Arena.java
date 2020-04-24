@@ -96,18 +96,22 @@ public class Arena {
 
         int stick = player.getInventory().first(Material.STICK);
         int blocke = -10;
-        if (player.getInventory().first(blocks.getData().getItemType()) == -1)
-            blocke = player.getInventory().first(Material.BARRIER);
-        else if (player.getInventory().first(Material.BARRIER) == -1)
+
+        if (player.getInventory().first(blocks.getData().getItemType()) != -1)
             blocke = player.getInventory().first(blocks.getData().getItemType());
+        else if (player.getInventory().first(Material.BARRIER) != -1)
+            blocke = player.getInventory().first(Material.BARRIER);
+
         if (player.getInventory().getItemInOffHand().getData().getItemType() == Material.LEGACY_BARRIER ||
                 player.getInventory().getItemInOffHand().getData().getItemType() == blocks.getData().getItemType())
             blocke = -5;
 
         if (stick == -1)
             stick = 0;
-        if (blocke == -1)
+
+        if (blocke == -10) {
             blocke = 1;
+        }
 
         boolean ofhand = false;
         if (blocke == -5)

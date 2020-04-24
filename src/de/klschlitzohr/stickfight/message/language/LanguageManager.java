@@ -58,13 +58,15 @@ public class LanguageManager {
         this.loadingThread.start();
     }
 
-    public boolean changeLanguage(String language) {
-        if (!language.equals("en"))
-            language = "_" + language;
-        else
-            language = "";
+    public boolean changeLanguage(final String language) {
+        String fileName = language;
 
-        File languageFile = new File("plugins/Stickfight/languages/messages" + language + ".properties");
+        if (!language.equals("en"))
+            fileName = "_" + language;
+        else
+            fileName = "";
+
+        File languageFile = new File("plugins/Stickfight/languages/messages" + fileName + ".properties");
 
         if (!languageFile.exists())
             return false;
@@ -76,7 +78,6 @@ public class LanguageManager {
         }
 
         this.saveChanges(language);
-
         return true;
     }
 
