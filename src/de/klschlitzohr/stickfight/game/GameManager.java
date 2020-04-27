@@ -1,5 +1,7 @@
 package de.klschlitzohr.stickfight.game;
 
+import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
+import de.klschlitzohr.stickfight.message.console.ConsoleMessageType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -49,13 +51,18 @@ public class GameManager {
         if (playersInQueue.contains(player))
             return true;
             playersInQueue.add(player);
+        System.out.println("aaa" + player.getName());
             if (playersInQueue.size() == 2) {
+                System.out.println("aaaaaa");
                 for (Arena arena : avivableArenas) {
+                    System.out.println("aaasdasda");
                     if (arena.getPlayersinarena().size() == 0) {
                         for (Player playerinque : playersInQueue) {
                             joinArenaName(arena.getName(),playerinque);
-                            playersInQueue.remove(playerinque);
                         }
+                        if (!playersInQueue.isEmpty())
+                            new ConsoleMessageBuilder("Warteschlangenfehler").setType(ConsoleMessageType.CONSOLE_ERROR).send();
+                        playersInQueue.clear();
                         return true;
                     }
                 }
