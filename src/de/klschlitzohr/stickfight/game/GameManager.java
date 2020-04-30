@@ -99,11 +99,13 @@ public class GameManager {
         for (Arena arena : allArena) {
             if (arena.playerIsInArena(player)) {
                 for (Player playersinarena : arena.getPlayersinarena().keySet()) {
-                    if (!serverLeave) {
-                        playersinarena.teleport(lastLocation.get(playersinarena));
+                    if (player == playersinarena) {
+                        if (!serverLeave) {
+                            playersinarena.teleport(lastLocation.get(playersinarena));
+                        }
+                        lastLocation.remove(playersinarena);
+                        arena.leaveArena(playersinarena);
                     }
-                    lastLocation.remove(playersinarena);
-                    arena.leaveArena(playersinarena);
                 }
                 avivableArenas.add(arena);
                 activeArenas.remove(arena);

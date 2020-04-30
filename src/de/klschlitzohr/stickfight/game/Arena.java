@@ -55,7 +55,7 @@ public class Arena {
     }
 
     public void leaveArena(Player player) {
-        Thread t = new Thread(() -> {
+        new Thread(() -> {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -64,7 +64,7 @@ public class Arena {
             //TODO Error player does not leeave!
             playersinarena.remove(player);
             System.out.println("removed");
-        },"leaveArena");
+        },"leaveArena").start();
         player.getInventory().clear();
         ScoreBoardUtils.updateScoreBoard(this,false);
     }
