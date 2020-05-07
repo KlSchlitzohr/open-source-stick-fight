@@ -3,6 +3,7 @@ package de.klschlitzohr.stickfight.game;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageType;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
+import de.klschlitzohr.stickfight.message.player.PlayerMessageType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -13,7 +14,7 @@ public class GameManager {
 
     private HashMap<Player, Location> lastLocation = new HashMap<>();
 
-    private HashMap<Player, Location> duellRequest= new HashMap<>();
+    private HashMap<Player, Player> duellRequest= new HashMap<>();
 
     private ArrayList<Arena> allArena;
 
@@ -82,19 +83,25 @@ public class GameManager {
     public void sendFightRequest(Player sender, Player reciver) {
         if (duellRequest.keySet().contains(reciver) && duellRequest.get(reciver) == sender) {
             new PlayerMessageBuilder("command.duell.successaccept",sender).send();
+            boolean foundarena = false;
             for (Arena arena : activeArenas) {
                 if (arena.getPlayersinarena().size() == 0) {
                     joinArenaName(arena.getName(),sender);
                     joinArenaName(arena.getName(),reciver);
+                    foundarena = true;
                 }
+            }
+            if (!foundarena) {
+                new PlayerMessageBuilder("command.joinqueue.error", sender).setType(PlayerMessageType.PLAYER_ERROR).send();
+                new PlayerMessageBuilder("command.joinqueue.error", reciver).setType(PlayerMessageType.PLAYER_ERROR).send();
             }
             duellRequest.remove(sender);
             duellRequest.remove(reciver);
-        }
-        if (!duellRequest.keySet().contains(sender) && duellRequest.get(sender) == reciver) {
+        } else if (!(duellRequest.keySet().contains(sender) && duellRequest.get(sender) == reciver)) {
             new PlayerMessageBuilder("command.duell.success",sender).send();
             new PlayerMessageBuilder("command.duell.reciverequest",reciver)
-                    .addVariable("%player",sender.getName()).send();;
+                    .addVariable("%player",sender.getName()).send();
+            duellRequest.put(sender,reciver);
         }
     }
 

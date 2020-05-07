@@ -19,8 +19,10 @@ public class SetUpCommand implements SubCommand {
         FileConfiguration cfg = YamlConfiguration
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
         if (args.length == 1) {
+            new PlayerMessageBuilder("command.setup",player).setType(PlayerMessageType.PLAYER_SETUP).send();
             new PlayerMessageBuilder("command.setup.creategame.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             new PlayerMessageBuilder("command.setup.setspawn.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            new PlayerMessageBuilder("command.setup.setmaterial.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             new PlayerMessageBuilder("command.setup.finish.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             return;
         }
