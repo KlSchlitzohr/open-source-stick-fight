@@ -17,7 +17,6 @@ public class LeaveCommand implements SubCommand {
     @Override
     public void run(Player player, String[] args) {
         gameManager.playerLeave(player,false);
-        new PlayerMessageBuilder("command.leave.success",player).send();
     }
 
     @Override

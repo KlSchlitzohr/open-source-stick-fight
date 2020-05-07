@@ -20,8 +20,6 @@ public class JoinCommand implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        FileConfiguration cfg = YamlConfiguration
-                .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
         if (args.length == 2) {
             if (gameManager.joinArenaName(args[1],player)) {
                 new PlayerMessageBuilder("command.join.success", player).send();

@@ -18,7 +18,6 @@ public class GamesCommand implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        if (args.length == 1) {
             new PlayerMessageBuilder("command.games", player)
                     .setType(PlayerMessageType.PLAYER_INFO).send();
 
@@ -26,7 +25,6 @@ public class GamesCommand implements SubCommand {
                 new PlayerMessageBuilder("- " + arena.getName() + " " + arena.getPlayerCount() + "/2",
                         player, true).setType(PlayerMessageType.PLAYER_INFO).send();
             }
-        }
     }
 
     @Override

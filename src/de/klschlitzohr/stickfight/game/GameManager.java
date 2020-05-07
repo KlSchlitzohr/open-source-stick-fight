@@ -2,6 +2,7 @@ package de.klschlitzohr.stickfight.game;
 
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageType;
+import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,8 @@ import java.util.HashMap;
 public class GameManager {
 
     private HashMap<Player, Location> lastLocation = new HashMap<>();
+
+    private HashMap<Player, Location> duellRequest= new HashMap<>();
 
     private ArrayList<Arena> allArena;
 
@@ -76,6 +79,25 @@ public class GameManager {
         avivableArenas.add(arena);
     }
 
+    public void sendFightRequest(Player sender, Player reciver) {
+        if (duellRequest.keySet().contains(reciver) && duellRequest.get(reciver) == sender) {
+            new PlayerMessageBuilder("command.duell.successaccept",sender).send();
+            for (Arena arena : activeArenas) {
+                if (arena.getPlayersinarena().size() == 0) {
+                    joinArenaName(arena.getName(),sender);
+                    joinArenaName(arena.getName(),reciver);
+                }
+            }
+            duellRequest.remove(sender);
+            duellRequest.remove(reciver);
+        }
+        if (!duellRequest.keySet().contains(sender) && duellRequest.get(sender) == reciver) {
+            new PlayerMessageBuilder("command.duell.success",sender).send();
+            new PlayerMessageBuilder("command.duell.reciverequest",reciver)
+                    .addVariable("%player",sender.getName()).send();;
+        }
+    }
+
     public boolean removeArena(String name) {
         Arena toRemove = null;
 
@@ -99,13 +121,16 @@ public class GameManager {
         for (Arena arena : allArena) {
             if (arena.playerIsInArena(player)) {
                 for (Player playersinarena : arena.getPlayersinarena().keySet()) {
-                    if (player == playersinarena) {
+                    if (player == playersinarena)
+                        new PlayerMessageBuilder("command.leave.success",player).send();
+                     else
+                        new PlayerMessageBuilder("command.leave.teammate",player).send();
                         if (!serverLeave) {
                             playersinarena.teleport(lastLocation.get(playersinarena));
                         }
                         lastLocation.remove(playersinarena);
                         arena.leaveArena(playersinarena);
-                    }
+
                 }
                 avivableArenas.add(arena);
                 activeArenas.remove(arena);

@@ -25,6 +25,7 @@ public class CommandStickfightExecutor implements CommandExecutor {
         this.subCommands.put("setlang", new SetLangCommand());
         this.subCommands.put("leave", new LeaveCommand());
         this.subCommands.put("joinqueue", new JoinQueueCommand());
+        this.subCommands.put("duell", new DuellCommand());
     }
 
     @Override
