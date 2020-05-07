@@ -84,11 +84,12 @@ public class GameManager {
         if (duellRequest.keySet().contains(reciver) && duellRequest.get(reciver) == sender) {
             new PlayerMessageBuilder("command.duell.successaccept",sender).send();
             boolean foundarena = false;
-            for (Arena arena : activeArenas) {
+            for (Arena arena : avivableArenas) {
                 if (arena.getPlayersinarena().size() == 0) {
                     joinArenaName(arena.getName(),sender);
                     joinArenaName(arena.getName(),reciver);
                     foundarena = true;
+                    break;
                 }
             }
             if (!foundarena) {
@@ -132,7 +133,7 @@ public class GameManager {
                         new PlayerMessageBuilder("command.leave.success",player).send();
                      else
                         new PlayerMessageBuilder("command.leave.teammate",player).send();
-                        if (!serverLeave) {
+                        if (!(player.equals(playersinarena) && serverLeave)) {
                             playersinarena.teleport(lastLocation.get(playersinarena));
                         }
                         lastLocation.remove(playersinarena);

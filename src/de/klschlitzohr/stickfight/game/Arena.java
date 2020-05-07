@@ -61,9 +61,7 @@ public class Arena {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //TODO Error player does not leeave!
             playersinarena.remove(player);
-            System.out.println("removed");
         },"leaveArena").start();
         player.getInventory().clear();
         ScoreBoardUtils.updateScoreBoard(this,false);
