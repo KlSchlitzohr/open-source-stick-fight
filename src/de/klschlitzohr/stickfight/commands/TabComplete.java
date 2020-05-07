@@ -19,7 +19,7 @@ public class TabComplete implements TabCompleter {
             return Arrays.asList("1","2");
         }
         if (!(args.length >= 2)) {
-            return Arrays.asList("games", "join", "setup", "help", "setlang","leave","joinqueue");
+            return Arrays.asList("games", "join", "setup", "help", "setlang","leave","joinqueue","duell");
         }
             return new ArrayList<>();
     }

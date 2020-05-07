@@ -13,8 +13,6 @@ public class JoinQueueCommand implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        FileConfiguration cfg = YamlConfiguration
-                .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
             if (Main.getPlugin().getGameManager().joinQueue(player)) {
                 new PlayerMessageBuilder("command.joinqueue.success", player).send();
             } else {

@@ -1,6 +1,7 @@
 package de.klschlitzohr.stickfight.commands.subcommand.impl;
 
 import de.klschlitzohr.stickfight.commands.subcommand.SubCommand;
+import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.main.Main;
 import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,12 +12,18 @@ import java.io.File;
 
 public class JoinCommand implements SubCommand {
 
+    private GameManager gameManager;
+
+    public JoinCommand() {
+        gameManager = Main.getPlugin().getGameManager();
+    }
+
     @Override
     public void run(Player player, String[] args) {
         FileConfiguration cfg = YamlConfiguration
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
         if (args.length == 2) {
-            if (Main.getPlugin().getGameManager().joinArenaName(args[1],player)) {
+            if (gameManager.joinArenaName(args[1],player)) {
                 new PlayerMessageBuilder("command.join.success", player).send();
             } else {
                 new PlayerMessageBuilder("command.join.full", player).send();
