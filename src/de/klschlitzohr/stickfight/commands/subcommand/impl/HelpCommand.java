@@ -10,7 +10,7 @@ public class HelpCommand implements SubCommand {
     public void run(Player player, String[] args) {
         new PlayerMessageBuilder("command.help", player).send();
         new PlayerMessageBuilder("command.setup",player).send();
-        new PlayerMessageBuilder("command.duell.synatx",player).send();
+        new PlayerMessageBuilder("command.duell.syntax",player).send();
         new PlayerMessageBuilder("command.games.syntax",player).send();
         new PlayerMessageBuilder("command.join.syntax",player).send();
         new PlayerMessageBuilder("command.joinqueue.syntax",player).send();
