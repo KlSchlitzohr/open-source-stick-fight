@@ -55,16 +55,13 @@ public class BlockBreakPlaceListner implements Listener {
                     player.getInventory().setItemInOffHand(new ItemStackBuilder(Material.BARRIER, 1)
                             .setDisplayName("§cXXX").build());
                 }
-            }
-            else if (player.getInventory().getItemInMainHand().getAmount() == 1)
+            } else if (player.getInventory().getItemInMainHand().getAmount() == 1)
                 player.getInventory().setItemInMainHand(new ItemStackBuilder(Material.BARRIER,1).setDisplayName("§cXXX").build());
 
             getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
-                    Bukkit.getServer().getWorld("world").getBlockAt(
-                            event.getBlock().getLocation()).setType(Material.REDSTONE_BLOCK), 60L);
+                    event.getBlock().setType(Material.REDSTONE_BLOCK), 60L);
             getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), () ->
-                    Bukkit.getServer().getWorld("world").getBlockAt(
-                            event.getBlock().getLocation()).setType(Material.AIR), 70L);
+                    event.getBlock().setType(Material.AIR), 70L);
         }
     }
 

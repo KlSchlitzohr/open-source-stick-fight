@@ -39,10 +39,10 @@ public class Arena {
         this.name = name.toUpperCase();
         FileConfiguration cfg = YamlConfiguration
                 .loadConfiguration(new File("plugins//Stickfight//Games.yml"));
-        firstspawn = cfg.getLocation(name + ".1");
-        secoundspawn = cfg.getLocation(name + ".2");
-        deathHigh = cfg.getInt(name + ".death");
-        blocks = cfg.getItemStack(name + ".blocks");
+        firstspawn = cfg.getLocation(this.name + ".1");
+        secoundspawn = cfg.getLocation(this.name + ".2");
+        deathHigh = cfg.getInt(this.name + ".death");
+        blocks = cfg.getItemStack(this.name + ".blocks");
         setNockbackStick();
     }
     private void setNockbackStick() {
