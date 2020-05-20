@@ -20,3 +20,6 @@ If You want to set the language to German type the following command:
  /sf setlang de
 #Bugs
 Please Report Bugs if you found one. 
+# Translations
+If you have translated the messages of this plugin to any other language. 
+Then you gladly can open a pull request with the language file in the language directory. 
