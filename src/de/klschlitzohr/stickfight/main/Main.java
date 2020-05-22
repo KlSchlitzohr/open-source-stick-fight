@@ -3,7 +3,6 @@ package de.klschlitzohr.stickfight.main;
 import de.klschlitzohr.stickfight.commands.CommandStickfightExecutor;
 import de.klschlitzohr.stickfight.commands.TabComplete;
 import de.klschlitzohr.stickfight.game.GameManager;
-import de.klschlitzohr.stickfight.game.ScoreBoardUtils;
 import de.klschlitzohr.stickfight.listner.*;
 import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.language.LanguageManager;

@@ -3,7 +3,6 @@ package de.klschlitzohr.stickfight.commands.subcommand.impl;
 import de.klschlitzohr.stickfight.commands.subcommand.SubCommand;
 import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.main.Main;
-import de.klschlitzohr.stickfight.message.player.PlayerMessageBuilder;
 import org.bukkit.entity.Player;
 
 public class LeaveCommand implements SubCommand {

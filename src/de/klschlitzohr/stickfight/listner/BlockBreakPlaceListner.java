@@ -4,7 +4,6 @@ import de.klschlitzohr.stickfight.game.Arena;
 import de.klschlitzohr.stickfight.game.GameManager;
 import de.klschlitzohr.stickfight.game.ItemStackBuilder;
 import de.klschlitzohr.stickfight.main.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.MainHand;
 
 import static org.bukkit.Bukkit.getServer;
 
