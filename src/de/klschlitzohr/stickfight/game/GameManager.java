@@ -132,7 +132,7 @@ public class GameManager {
                     if (player == playersinarena)
                         new PlayerMessageBuilder("command.leave.success",player).send();
                      else
-                        new PlayerMessageBuilder("command.leave.teammate",player).send();
+                        new PlayerMessageBuilder("command.leave.teammate",arena.getOtherPlayer(player)).send();
                         if (!(player.equals(playersinarena) && serverLeave)) {
                             playersinarena.teleport(lastLocation.get(playersinarena));
                         }
