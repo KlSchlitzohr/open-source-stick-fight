@@ -24,6 +24,7 @@ public class SetUpCommand implements SubCommand {
             new PlayerMessageBuilder("command.setup.setspawn.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             new PlayerMessageBuilder("command.setup.setmaterial.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             new PlayerMessageBuilder("command.setup.finish.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
+            new PlayerMessageBuilder("command.setup.deletegame.syntax", player).setType(PlayerMessageType.PLAYER_SETUP).send();
             return;
         }
         if (args[1].equalsIgnoreCase("creategame")) {
