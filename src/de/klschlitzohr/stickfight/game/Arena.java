@@ -1,11 +1,14 @@
 package de.klschlitzohr.stickfight.game;
 
+import de.klschlitzohr.stickfight.main.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -64,6 +67,8 @@ public class Arena {
             playersinarena.remove(player);
         },"leaveArena").start();
         player.getInventory().clear();
+        Main.getPlugin().getGameManager().getGamePlayer().get(player).getInventory().forEach(itemStack
+                -> player.getInventory().addItem(itemStack));
         ScoreBoardUtils.updateScoreBoard(this,false);
     }
 
@@ -84,13 +89,19 @@ public class Arena {
                 first = false;
             } else
                 player.teleport(secoundspawn);
-            setInventory(player);
+            setInventory(player,true);
         }
         ScoreBoardUtils.updateScoreBoard(this,true);
     }
 
-    private void setInventory(Player player) {
+    private void setInventory(Player player,boolean saveInventory) {
         player.closeInventory();
+
+        if (saveInventory) {
+            Inventory inventory = Bukkit.createInventory(null, player.getInventory().getSize());
+        player.getInventory().forEach(inventory::addItem);
+        Main.getPlugin().getGameManager().getGamePlayer().get(player).setInventory(inventory);
+        }
 
         int stick = player.getInventory().first(Material.STICK);
         int blocke = -10;
@@ -130,7 +141,7 @@ public class Arena {
     public void killPlayer(Player player) {
         Player otherPlayer = getOtherPlayer(player);
         playersinarena.put(otherPlayer,playersinarena.get(otherPlayer) + 1);
-        setInventory(player);
+        setInventory(player,false);
         ScoreBoardUtils.updateScoreBoard(this,true);
         if (otherPlayer.getLocation().distance(firstspawn) > otherPlayer.getLocation().distance(secoundspawn))
             player.teleport(firstspawn);

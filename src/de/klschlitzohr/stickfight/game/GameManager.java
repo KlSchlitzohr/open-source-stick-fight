@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class GameManager {
 
-    private HashMap<Player, Location> lastLocation = new HashMap<>();
+    private HashMap<Player, GamePlayer> lastLocation = new HashMap<>();
 
     private HashMap<Player, Player> duellRequest= new HashMap<>();
 
@@ -39,7 +39,7 @@ public class GameManager {
                         avivableArenas.remove(arena);
                         activeArenas.add(arena);
                         for (Player player1 : arena.getPlayersinarena().keySet()) {
-                            lastLocation.put(player1, player1.getLocation());
+                            lastLocation.put(player1, new GamePlayer(player1.getLocation()));
                             player1.setHealth(player1.getHealthScale());
                             player1.setFoodLevel(20);
                         }
@@ -134,7 +134,7 @@ public class GameManager {
                      else
                         new PlayerMessageBuilder("command.leave.teammate",arena.getOtherPlayer(player)).send();
                         if (!(player.equals(playersinarena) && serverLeave)) {
-                            playersinarena.teleport(lastLocation.get(playersinarena));
+                            playersinarena.teleport(lastLocation.get(playersinarena).getLocation());
                         }
                         lastLocation.remove(playersinarena);
                         arena.leaveArena(playersinarena);
@@ -152,9 +152,10 @@ public class GameManager {
 
     //Getter & Setters
 
-    public HashMap<Player, Location> getLastLocation() {
+    public HashMap<Player, GamePlayer> getGamePlayer() {
         return lastLocation;
     }
+
     public ArrayList<Arena> getAllArena() {
         return allArena;
     }

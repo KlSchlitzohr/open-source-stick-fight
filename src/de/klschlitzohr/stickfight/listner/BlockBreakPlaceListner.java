@@ -25,7 +25,7 @@ public class BlockBreakPlaceListner implements Listener {
     @EventHandler
     public void blockPlace(BlockPlaceEvent event) {
         Player player = (Player) event.getPlayer();
-        if (this.gameManager.getLastLocation().containsKey(player)) {
+        if (this.gameManager.getGamePlayer().containsKey(player)) {
             if (event.getBlockPlaced().getType() == Material.BARRIER) {
                 event.setCancelled(true);
                 return;
@@ -65,7 +65,7 @@ public class BlockBreakPlaceListner implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event) {
         Player player = (Player) event.getPlayer();
-        if (this.gameManager.getLastLocation().containsKey(player)) {
+        if (this.gameManager.getGamePlayer().containsKey(player)) {
             event.setCancelled(true);
         }
     }

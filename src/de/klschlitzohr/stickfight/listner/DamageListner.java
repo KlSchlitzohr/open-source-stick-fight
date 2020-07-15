@@ -19,7 +19,7 @@ public class DamageListner implements Listener {
     public void getDamageByEntity(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (this.gameManager.getLastLocation().containsKey(player)) {
+            if (this.gameManager.getGamePlayer().containsKey(player)) {
                 event.setDamage(0);
             }
         }

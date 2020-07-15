@@ -18,7 +18,7 @@ public class FoodListner implements Listener {
     @EventHandler
     public void getHungry(FoodLevelChangeEvent event) {
            Player player = (Player) event.getEntity();
-           if (this.gameManager.getLastLocation().containsKey(player)) {
+           if (this.gameManager.getGamePlayer().containsKey(player)) {
                event.setCancelled(true);
         }
     }

@@ -18,7 +18,7 @@ public class DropListner implements Listener {
     @EventHandler
     public void dropItem(PlayerDropItemEvent event) {
         Player player = (Player) event.getPlayer();
-        if (this.gameManager.getLastLocation().containsKey(player)) {
+        if (this.gameManager.getGamePlayer().containsKey(player)) {
             event.setCancelled(true);
         }
 
