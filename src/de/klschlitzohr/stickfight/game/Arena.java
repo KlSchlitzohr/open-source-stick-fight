@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -67,8 +68,10 @@ public class Arena {
             playersinarena.remove(player);
         },"leaveArena").start();
         player.getInventory().clear();
-        Main.getPlugin().getGameManager().getGamePlayer().get(player).getInventory().forEach(itemStack
-                -> player.getInventory().addItem(itemStack));
+        Main.getPlugin().getGameManager().getGamePlayer().get(player).getInventory().forEach(itemStack -> {
+            if (itemStack != null)
+                player.getInventory().addItem(itemStack);
+        });
         ScoreBoardUtils.updateScoreBoard(this,false);
     }
 
@@ -98,8 +101,11 @@ public class Arena {
         player.closeInventory();
 
         if (saveInventory) {
-            Inventory inventory = Bukkit.createInventory(null, player.getInventory().getSize());
-        player.getInventory().forEach(inventory::addItem);
+            Inventory inventory = Bukkit.createInventory(null, InventoryType.PLAYER);
+        player.getInventory().forEach(itemStack -> {
+            if (itemStack != null)
+                inventory.addItem(itemStack);
+        });
         Main.getPlugin().getGameManager().getGamePlayer().get(player).setInventory(inventory);
         }
 

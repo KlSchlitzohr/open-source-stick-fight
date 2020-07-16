@@ -61,8 +61,6 @@ public class GameManager {
                         for (Player playerinque : playersInQueue) {
                             joinArenaName(arena.getName(),playerinque);
                         }
-                        if (!playersInQueue.isEmpty())
-                            new ConsoleMessageBuilder("Warteschlangenfehler").setType(ConsoleMessageType.CONSOLE_ERROR).send();
                         playersInQueue.clear();
                         return true;
                     }
@@ -136,8 +134,8 @@ public class GameManager {
                         if (!(player.equals(playersinarena) && serverLeave)) {
                             playersinarena.teleport(lastLocation.get(playersinarena).getLocation());
                         }
-                        lastLocation.remove(playersinarena);
-                        arena.leaveArena(playersinarena);
+                    arena.leaveArena(playersinarena);
+                    lastLocation.remove(playersinarena);
 
                 }
                 avivableArenas.add(arena);
