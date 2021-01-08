@@ -9,14 +9,9 @@ import de.klschlitzohr.stickfight.message.console.ConsoleMessageBuilder;
 import de.klschlitzohr.stickfight.message.language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.io.File;
-import java.util.List;
 
 public class Main extends JavaPlugin {
 

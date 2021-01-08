@@ -52,8 +52,6 @@ public class CommandStickfightExecutor implements CommandExecutor {
             }
 
             subCommand.run(player, args);
-        } else {
-
         }
         return false;
     }
