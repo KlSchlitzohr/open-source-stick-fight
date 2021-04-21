@@ -1,0 +1,14 @@
+main: de.klschlitzohr.stickfight.main.Main
+
+name: StickFight
+version: 1.5
+api-version: 1.13
+author: KlSchlitzohr
+authors:
+  - Mondstation
+
+commands:
+  stickfight:
+    description: StickFight Basic Command
+    aliases:
+      - sf

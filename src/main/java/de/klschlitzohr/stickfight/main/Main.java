@@ -33,7 +33,7 @@ public class Main extends JavaPlugin {
                 Setup.setup();
                 Main.getPlugin().setGameManager(new GameManager());
 
-                PluginCommand sfCommand = getCommand("de/klschlitzohr/stickfight");
+                PluginCommand sfCommand = getCommand("stickfight");
 
                 sfCommand.setExecutor(new CommandStickfightExecutor());
                 sfCommand.setTabCompleter(new TabComplete());

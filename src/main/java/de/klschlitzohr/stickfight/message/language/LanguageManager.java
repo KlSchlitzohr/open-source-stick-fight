@@ -115,8 +115,8 @@ public class LanguageManager {
     }
 
     private void saveDefaultLanguages(final File parent) throws IOException {
-        this.saveFile("languages/messages.properties", parent);
-        this.saveFile("languages/messages_de.properties", parent);
+        this.saveFile("messages.properties", parent);
+        this.saveFile("messages_de.properties", parent);
     }
 
     private void saveFile(final String resourceName, final File parent) throws IOException {
@@ -127,7 +127,7 @@ public class LanguageManager {
             return;
         }
 
-        File outFile = new File(parent, resourceName.substring(resourceName.lastIndexOf('/')));
+        File outFile = new File(parent, resourceName);
 
         if (!outFile.exists()) {
             outFile.getParentFile().mkdirs();
