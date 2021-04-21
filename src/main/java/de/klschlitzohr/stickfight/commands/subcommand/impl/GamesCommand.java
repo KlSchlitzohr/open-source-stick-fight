@@ -29,6 +29,6 @@ public class GamesCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.games";
+        return "stickfight.command.games";
     }
 }

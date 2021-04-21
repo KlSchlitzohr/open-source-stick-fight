@@ -28,6 +28,6 @@ public class DuellCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.duell";
+        return "stickfight.command.duell";
     }
 }

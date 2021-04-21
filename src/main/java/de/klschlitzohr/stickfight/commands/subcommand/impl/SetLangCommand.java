@@ -29,6 +29,6 @@ public class SetLangCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.setlang";
+        return "stickfight.command.setlang";
     }
 }

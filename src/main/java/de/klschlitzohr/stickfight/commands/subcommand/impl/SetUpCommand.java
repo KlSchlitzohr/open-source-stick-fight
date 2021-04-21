@@ -108,6 +108,6 @@ public class SetUpCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.setup";
+        return "stickfight.command.setup";
     }
 }

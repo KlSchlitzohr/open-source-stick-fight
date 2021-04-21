@@ -11,6 +11,6 @@ public class StatsCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.stats";
+        return "stickfight.command.stats";
     }
 }

@@ -20,6 +20,6 @@ public class HelpCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.help";
+        return "stickfight.command.help";
     }
 }

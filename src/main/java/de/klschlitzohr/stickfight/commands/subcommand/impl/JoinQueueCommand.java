@@ -19,6 +19,6 @@ public class JoinQueueCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.joinqueue";
+        return "stickfight.command.joinqueue";
     }
 }

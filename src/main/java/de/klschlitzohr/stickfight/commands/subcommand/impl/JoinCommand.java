@@ -29,6 +29,6 @@ public class JoinCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.join";
+        return "stickfight.command.join";
     }
 }

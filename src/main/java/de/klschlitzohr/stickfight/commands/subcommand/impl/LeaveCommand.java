@@ -20,6 +20,6 @@ public class LeaveCommand implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "de.klschlitzohr.stickfight.command.leave";
+        return "stickfight.command.leave";
     }
 }
