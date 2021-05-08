@@ -46,6 +46,7 @@ public class Main extends JavaPlugin {
                 pluginManager.registerEvents(new BlockBreakPlaceListner(), Main.getPlugin());
                 pluginManager.registerEvents(new FoodListner(), Main.getPlugin());
                 pluginManager.registerEvents(new DropListner(), Main.getPlugin());
+                pluginManager.registerEvents(new PlayerJoinListner(), Main.getPlugin());
             }
         };
         runnable.runTaskLater(Main.getPlugin(), 1L);

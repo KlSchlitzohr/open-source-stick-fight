@@ -36,7 +36,7 @@ public class GameManager {
                         avivableArenas.remove(arena);
                         activeArenas.add(arena);
                         for (Player player1 : arena.getPlayersinarena().keySet()) {
-                            lastLocation.put(player1, new GamePlayer(player1.getLocation()));
+                            lastLocation.put(player1, new GamePlayer(player1));
                             player1.setHealth(player1.getHealthScale());
                             player1.setFoodLevel(20);
                         }
@@ -120,7 +120,7 @@ public class GameManager {
         return true;
     }
 
-    public void playerLeave(Player player, boolean serverLeave) {
+    public void playerLeave(Player player,boolean serverLeave) {
         for (Arena arena : allArena) {
             if (arena.playerIsInArena(player)) {
                 for (Player playersinarena : arena.getPlayersinarena().keySet()) {
@@ -128,20 +128,21 @@ public class GameManager {
                         new PlayerMessageBuilder("command.leave.success",player).send();
                      else
                         new PlayerMessageBuilder("command.leave.teammate",arena.getOtherPlayer(player)).send();
-                        if (!(player.equals(playersinarena) && serverLeave)) {
+                        /*if (!(player.equals(playersinarena) && serverLeave)) {
                             playersinarena.teleport(lastLocation.get(playersinarena).getLocation());
-                        }
+                        }*/
+                        lastLocation.get(playersinarena).managerLeave(player.equals(playersinarena) && serverLeave);
                     arena.leaveArena(playersinarena);
                     lastLocation.remove(playersinarena);
-
+                    if (playersInQueue.contains(playersinarena))
+                        playersInQueue.remove(playersInQueue);
                 }
                 avivableArenas.add(arena);
                 activeArenas.remove(arena);
                 break;
             }
         }
-        if (playersInQueue.contains(player))
-            playersInQueue.remove(player);
+
     }
 
 

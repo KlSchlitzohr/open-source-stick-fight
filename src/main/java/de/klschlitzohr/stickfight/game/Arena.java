@@ -21,10 +21,6 @@ public class Arena {
         return name;
     }
 
-    public HashMap<Player, Integer> getPlayersinarena() {
-        return playersinarena;
-    }
-
     private HashMap<Player, Integer> playersinarena = new HashMap<>();
 
     private ItemStack nockbackstick;
@@ -49,11 +45,11 @@ public class Arena {
         blocks = cfg.getItemStack(this.name + ".blocks");
         setNockbackStick();
     }
+
     private void setNockbackStick() {
         nockbackstick = new ItemStackBuilder(Material.STICK,1).setDisplayName("§cStick")
                 .addEnchantment(Enchantment.KNOCKBACK,2,true).build();
     }
-
     public void joinArena(Player player) {
         playersinarena.put(player,0);
     }
@@ -67,11 +63,6 @@ public class Arena {
             }
             playersinarena.remove(player);
         },"leaveArena").start();
-        player.getInventory().clear();
-        Main.getPlugin().getGameManager().getGamePlayer().get(player).getInventory().forEach(itemStack -> {
-            if (itemStack != null)
-                player.getInventory().addItem(itemStack);
-        });
         ScoreBoardUtils.updateScoreBoard(this,false);
     }
 
@@ -185,5 +176,9 @@ public class Arena {
 
     public Location getFirstspawn() {
         return firstspawn;
+    }
+
+    public HashMap<Player, Integer> getPlayersinarena() {
+        return playersinarena;
     }
 }
