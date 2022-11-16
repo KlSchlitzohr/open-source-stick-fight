@@ -18,8 +18,10 @@ public class DuellCommand implements SubCommand {
     @Override
     public void run(Player player, String[] args) {
         if (args.length == 2) {
-            if (!Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1])))
-                new PlayerMessageBuilder("command.duell.offline",player).send();
+            if (!Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) {
+                new PlayerMessageBuilder("command.duell.offline", player).send();
+                return;
+            }
             gameManager.sendFightRequest(player,Bukkit.getPlayer(args[1]));
         } else {
             new PlayerMessageBuilder("command.duell.syntax",player).send();
